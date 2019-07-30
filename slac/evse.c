@@ -371,7 +371,7 @@ int main (int argc, char const * argv [])
 	extern struct channel channel;
 	static char const * optv [] =
 	{
-		"cCdi:Klp:qs:t:vx",
+		"cCdi:Kklp:qs:t:vx",
 		"",
 		"Qualcomm Atheros Electric Vehicle Supply Equipment Emulator",
 		"c\tprint template configuration file on stdout",
@@ -388,6 +388,7 @@ int main (int argc, char const * argv [])
 
 #endif
 		"K\tstop after sounding finished",
+		"k\tno set key on start",
 		"l\tdo not loop but exit after one run",
 		"p s\tconfiguration profile is (s) [" LITERAL (PROFILE) "]",
 		"s s\tconfiguration section is (s) [" LITERAL (SECTION) "]",
@@ -451,6 +452,9 @@ int main (int argc, char const * argv [])
 		case 'K':
 			_setbits (session.flags, SLAC_SOUNDONLY);
 			break;
+		case 'k':
+			_setbits (session.flags, SLAC_NOSETKEY);
+			break;
 		case 'l':
 			dont_loop = 1;
 			break;
@@ -486,7 +490,7 @@ int main (int argc, char const * argv [])
 	openchannel (& channel);
 	initialize (& session, profile, section);
 	identifier (& session, & channel);
-	if (_allclr (session.flags, SLAC_SOUNDONLY))
+	if (_allclr (session.flags, SLAC_SOUNDONLY)  && _allclr (session.flags, SLAC_NOSETKEY))
 	{
 		if (evse_cm_set_key (& session, & channel, & message))
 		{

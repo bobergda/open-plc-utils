@@ -113,6 +113,7 @@
 #define SLAC_SESSION   (1 << 2)
 #define SLAC_COMPARE   (1 << 3)
 #define SLAC_SOUNDONLY (1 << 4)
+#define SLAC_NOSETKEY  (1 << 5)
 
 #define SLAC_CM_SETKEY_KEYTYPE 0x01
 #define SLAC_CM_SETKEY_PID 0x04
